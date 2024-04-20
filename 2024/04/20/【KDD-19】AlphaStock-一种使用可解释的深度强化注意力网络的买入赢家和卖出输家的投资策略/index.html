@@ -18,7 +18,7 @@
 <meta property="og:image" content="http://example.com/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240420150901.png">
 <meta property="og:image" content="http://example.com/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240420150834.png">
 <meta property="article:published_time" content="2024-04-20T06:40:00.000Z">
-<meta property="article:modified_time" content="2024-04-20T07:10:22.194Z">
+<meta property="article:modified_time" content="2024-04-20T08:09:39.001Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="论文阅读">
 <meta name="twitter:card" content="summary">
@@ -114,16 +114,11 @@
 <p>论文所提出的AlphaStock，使用深度注意力网络和强化学习以克服以上困难，包含以下三个部分：</p>
 <ol>
 <li>LSTM with History state Attention (LSTM-HA) network，用于从多个时间序列中获取资产的表示；</li>
-<li>构建了跨资产的attention网络（CAAN），对资产之间的相互关系、资产价格的上涨进行建模；</li>
-<li>投资组合生成器，根据attention网络输出的赢家分数，给出每个资产的投资比例。<br>模型使用RL进行优化，最大化夏普比率以平衡回报和风险。<br>为了进一步获得模型的可解释性，论文还提出一种敏感性分析法，来揭示模型如何根据资产的多个特征进行资产投资。</li>
+<li>构建了跨资产的attention网络（<strong>CAAN</strong>），对资产之间的相互关系、资产价格的上涨进行建模；</li>
+<li>投资组合生成器，根据<strong>attention网络</strong>输出的赢家分数，给出每个资产的投资比例。<br>模型使用RL进行优化，最大化夏普比率以平衡回报和风险。<br>为了进一步获得模型的可解释性，论文还提出一种敏感性分析法，来揭示模型如何根据资产的多个特征进行资产投资。</li>
 </ol>
 <h3 id="BWSL策略"><a href="#BWSL策略" class="headerlink" title="BWSL策略"></a>BWSL策略</h3><p>论文采用了BWSL策略进行股票交易，简单来说即：买入价格上涨率高的资产（赢家）并卖出价格下跌率高的资产（输家）的交易规则。<br>论文将该策略作为零投资的投资组合动作进行执行，确保投资组合中赢家的平均价格上涨率高于输家。</p>
-<h3 id="AlphaStock模型"><a href="#AlphaStock模型" class="headerlink" title="AlphaStock模型"></a>AlphaStock模型</h3><p>AlphaStock的模型架构由三个部分组成：</p>
-<ol>
-<li>LSTM with History state Attention (LSTM-HA)网络：用于从股票的历史状态中提取股票表示；</li>
-<li>跨资产的注意力网络（CAAN）：描述股票之间的相互关系，并计算每只股票的赢家分数；</li>
-<li>投资组合生成器：根据赢家分数生成投资组合。<br><img src="/../images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240420150023.png" alt="The framework of the AlphaStock model"></li>
-</ol>
+<h3 id="AlphaStock模型"><a href="#AlphaStock模型" class="headerlink" title="AlphaStock模型"></a>AlphaStock模型</h3><p>AlphaStock的模型架构由三个部分组成：<br><strong>1. LSTM with History state Attention (LSTM-HA)网络</strong>：用于从股票的历史状态中提取股票表示；<br><strong>2. 跨资产的注意力网络（CAAN）：描述股票之间的相互关系</strong>，并计算每只股票的赢家分数；<br><strong>3. 投资组合生成器</strong>：根据赢家分数生成投资组合。<br><img src="/../images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240420150023.png" alt="The framework of the AlphaStock model"></p>
 <h2 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h2><p>论文在美国和中国的长期市场中进行了实验，评估了AlphaStock模型的性能。实验结果表明，在不同市场状态下，AlphaStock模型都能取得有效和鲁棒的表现。</p>
 <h3 id="美国股市的表现"><a href="#美国股市的表现" class="headerlink" title="美国股市的表现"></a>美国股市的表现</h3><p>实验结果显示，AlphaStock模型在累计收益、年化收益率、夏普比率等方面表现优异，显著优于基线方法。<br><img src="/../images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240420150639.png" alt="Performance in U.S. Markets"></p>
 <h3 id="中国股市的表现"><a href="#中国股市的表现" class="headerlink" title="中国股市的表现"></a>中国股市的表现</h3><p>在中国股市实验中，AlphaStock模型同样表现出色，进一步验证了其在不同市场的有效性和鲁棒性。<br><img src="/../images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240420150901.png" alt="Performance comparison on Chinese markets"></p>
