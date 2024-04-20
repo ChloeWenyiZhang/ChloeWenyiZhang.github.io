@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Chloe" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  <meta name="description" content="个人博客" />
+  
+  
+  
+  <title>
+    
+      【KDD&#39;19】AlphaStock: 一种使用可解释的深度强化注意力网络的买入赢家和卖出输家的投资策略 
+      
+      
+      |
+    
+     Chloe’s Blog
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Chloe’s Blog" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img no-lazy src="/images/cat.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">Chloe_Zwy</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">Archives</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">【KDD'19】AlphaStock: 一种使用可解释的深度强化注意力网络的买入赢家和卖出输家的投资策略</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-04-20 16:09:39
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" title="论文阅读">
+                    #论文阅读
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h2 id="Title-AlphaStock-A-Buying-Winners-and-Selling-Losers-Investment-Strategy-using-Interpretable-Deep-Reinforcement-Attention-Networks"><a href="#Title-AlphaStock-A-Buying-Winners-and-Selling-Losers-Investment-Strategy-using-Interpretable-Deep-Reinforcement-Attention-Networks" class="headerlink" title="Title: AlphaStock: A Buying-Winners-and-Selling-Losers Investment Strategy using Interpretable Deep Reinforcement Attention Networks"></a>Title: AlphaStock: A Buying-Winners-and-Selling-Losers Investment Strategy using Interpretable Deep Reinforcement Attention Networks</h2><h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>这篇论文所提出的AlphaStock，是一种基于强化学习的投资策略，利用可解释的深度注意力网络进行增强。主要贡献如下：</p>
+<ol>
+<li>结合深度注意力网络和基于夏普比率的强化学习，以平衡收益和风险；</li>
+<li>对资产之间的相互关系进行建模，以避免选择偏差，并采用跨资产的注意力机制；</li>
+<li>（可能是）最早使用深度强化学习，并提供解释性的投资策略；<br>工作在美国和中国的长期股票市场中进行了实验，证明其在不同市场状态下的有效性和鲁棒性。<br>实验表明该方法倾向于选择长期价值增长、近期被低估的股票。</li>
+</ol>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>将深度学习应用于金融市场一直以来所面临的几个挑战：</p>
+<ul>
+<li>平衡回报和风险：大多数监督式的深度学习模型专注于没有风险的价格预测，有些基于RL的策略考虑了风险，但如何将最先进的深度学习方法应用于风险回报平衡的RL框架，还没有得到很好的研究；</li>
+<li>对资产之间的关系进行建模：市场上的许多金融工具可用于从资产之间的相互关系中获取考虑了风险因素的收益，例如对冲、套利、和BWSL策略，然而现有的基于DL&#x2F;RL的投资策略很少关注这些；</li>
+<li>解读投资策略：如何从DL的策略中提取可解释的规则。</li>
+</ul>
+<p>论文所提出的AlphaStock，使用深度注意力网络和强化学习以克服以上困难，包含以下三个部分：</p>
+<ol>
+<li>LSTM with History state Attention (LSTM-HA) network，用于从多个时间序列中获取资产的表示；</li>
+<li>构建了跨资产的attention网络（<strong>CAAN</strong>），对资产之间的相互关系、资产价格的上涨进行建模；</li>
+<li>投资组合生成器，根据<strong>attention网络</strong>输出的赢家分数，给出每个资产的投资比例。<br>模型使用RL进行优化，最大化夏普比率以平衡回报和风险。<br>为了进一步获得模型的可解释性，论文还提出一种敏感性分析法，来揭示模型如何根据资产的多个特征进行资产投资。</li>
+</ol>
+<h3 id="BWSL策略"><a href="#BWSL策略" class="headerlink" title="BWSL策略"></a>BWSL策略</h3><p>论文采用了BWSL策略进行股票交易，简单来说即：买入价格上涨率高的资产（赢家）并卖出价格下跌率高的资产（输家）的交易规则。<br>论文将该策略作为零投资的投资组合动作进行执行，确保投资组合中赢家的平均价格上涨率高于输家。</p>
+<h3 id="AlphaStock模型"><a href="#AlphaStock模型" class="headerlink" title="AlphaStock模型"></a>AlphaStock模型</h3><p>AlphaStock的模型架构由三个部分组成：<br><strong>1. LSTM with History state Attention (LSTM-HA)网络</strong>：用于从股票的历史状态中提取股票表示；<br><strong>2. 跨资产的注意力网络（CAAN）：描述股票之间的相互关系</strong>，并计算每只股票的赢家分数；<br><strong>3. 投资组合生成器</strong>：根据赢家分数生成投资组合。<br><img src="/../images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240420150023.png" alt="The framework of the AlphaStock model"></p>
+<h2 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h2><p>论文在美国和中国的长期市场中进行了实验，评估了AlphaStock模型的性能。实验结果表明，在不同市场状态下，AlphaStock模型都能取得有效和鲁棒的表现。</p>
+<h3 id="美国股市的表现"><a href="#美国股市的表现" class="headerlink" title="美国股市的表现"></a>美国股市的表现</h3><p>实验结果显示，AlphaStock模型在累计收益、年化收益率、夏普比率等方面表现优异，显著优于基线方法。<br><img src="/../images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240420150639.png" alt="Performance in U.S. Markets"></p>
+<h3 id="中国股市的表现"><a href="#中国股市的表现" class="headerlink" title="中国股市的表现"></a>中国股市的表现</h3><p>在中国股市实验中，AlphaStock模型同样表现出色，进一步验证了其在不同市场的有效性和鲁棒性。<br><img src="/../images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240420150901.png" alt="Performance comparison on Chinese markets"></p>
+<h3 id="投资策略解释"><a href="#投资策略解释" class="headerlink" title="投资策略解释"></a>投资策略解释</h3><p>论文使用敏感性分析方法解释了AlphaStock模型的投资策略。分析结果显示，股票的交易特征对赢家分数产生了重要影响，这有助于理解模型的决策过程。<br><img src="/../images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240420150834.png" alt="Influence of history trading features to winner scores"></p>
+<h2 id="Conclusions"><a href="#Conclusions" class="headerlink" title="Conclusions"></a>Conclusions</h2><p>论文提出了AlphaStock，一种基于强化学习和深度注意力网络的买入赢家和卖出输家的投资策略。实验证明，AlphaStock模型在不同市场状态下具有有效性和鲁棒性，为投资者提供了一种可靠的投资工具。</p>
+<p><a target="_blank" rel="noopener" href="https://dl.acm.org/doi/abs/10.1145/3292500.3330647">论文链接</a></p>
+<p>欢迎阅读并提出任何问题或建议！</p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2024/04/20/Hexo-GitHub-Pages-%E5%8D%9A%E5%AE%A2%E4%BD%9C%E4%B8%9A%E6%8A%A5%E5%91%8A/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-04-20 16:09:39
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" title="论文阅读">
+                        #论文阅读
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Title-AlphaStock-A-Buying-Winners-and-Selling-Losers-Investment-Strategy-using-Interpretable-Deep-Reinforcement-Attention-Networks"><span class="toc-text">Title: AlphaStock: A Buying-Winners-and-Selling-Losers Investment Strategy using Interpretable Deep Reinforcement Attention Networks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Abstract"><span class="toc-text">Abstract</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-text">Introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#BWSL%E7%AD%96%E7%95%A5"><span class="toc-text">BWSL策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AlphaStock%E6%A8%A1%E5%9E%8B"><span class="toc-text">AlphaStock模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Experiments"><span class="toc-text">Experiments</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BE%8E%E5%9B%BD%E8%82%A1%E5%B8%82%E7%9A%84%E8%A1%A8%E7%8E%B0"><span class="toc-text">美国股市的表现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AD%E5%9B%BD%E8%82%A1%E5%B8%82%E7%9A%84%E8%A1%A8%E7%8E%B0"><span class="toc-text">中国股市的表现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%95%E8%B5%84%E7%AD%96%E7%95%A5%E8%A7%A3%E9%87%8A"><span class="toc-text">投资策略解释</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conclusions"><span class="toc-text">Conclusions</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/ChloeWenyiZhang/ChloeWenyiZhang.github.io">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+        <li>
+          
+            <a title="email" href="mailto:ZWY20010224@iCloud.com">
+              <i class="iconfont icon-envelope"></i>
+            </a>
+            
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © 2024 Oranges</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+    <div class="footer-views">
+      
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+      
+          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        
+      
+          本站访客数<span id="busuanzi_value_site_uv"></span>人
+        
+      
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E3%80%90KDD'19%E3%80%91AlphaStock%3A%20%E4%B8%80%E7%A7%8D%E4%BD%BF%E7%94%A8%E5%8F%AF%E8%A7%A3%E9%87%8A%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%BC%BA%E5%8C%96%E6%B3%A8%E6%84%8F%E5%8A%9B%E7%BD%91%E7%BB%9C%E7%9A%84%E4%B9%B0%E5%85%A5%E8%B5%A2%E5%AE%B6%E5%92%8C%E5%8D%96%E5%87%BA%E8%BE%93%E5%AE%B6%E7%9A%84%E6%8A%95%E8%B5%84%E7%AD%96%E7%95%A5 + '&url=' + http%3A%2F%2Fexample.com%2F2024%2F04%2F20%2F%25E3%2580%2590KDD-19%25E3%2580%2591AlphaStock-%25E4%25B8%2580%25E7%25A7%258D%25E4%25BD%25BF%25E7%2594%25A8%25E5%258F%25AF%25E8%25A7%25A3%25E9%2587%258A%25E7%259A%2584%25E6%25B7%25B1%25E5%25BA%25A6%25E5%25BC%25BA%25E5%258C%2596%25E6%25B3%25A8%25E6%2584%258F%25E5%258A%259B%25E7%25BD%2591%25E7%25BB%259C%25E7%259A%2584%25E4%25B9%25B0%25E5%2585%25A5%25E8%25B5%25A2%25E5%25AE%25B6%25E5%2592%258C%25E5%258D%2596%25E5%2587%25BA%25E8%25BE%2593%25E5%25AE%25B6%25E7%259A%2584%25E6%258A%2595%25E8%25B5%2584%25E7%25AD%2596%25E7%2595%25A5%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2024/04/20/%E3%80%90KDD-19%E3%80%91AlphaStock-%E4%B8%80%E7%A7%8D%E4%BD%BF%E7%94%A8%E5%8F%AF%E8%A7%A3%E9%87%8A%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%BC%BA%E5%8C%96%E6%B3%A8%E6%84%8F%E5%8A%9B%E7%BD%91%E7%BB%9C%E7%9A%84%E4%B9%B0%E5%85%A5%E8%B5%A2%E5%AE%B6%E5%92%8C%E5%8D%96%E5%87%BA%E8%BE%93%E5%AE%B6%E7%9A%84%E6%8A%95%E8%B5%84%E7%AD%96%E7%95%A5/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>
