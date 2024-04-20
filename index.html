@@ -164,6 +164,28 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <h2 id="作业内容"><a href="#作业内容" class="headerlink" title="作业内容"></a>作业内容</h2><p>基于Hexo和Github Pages搭建了一个静态的个人blog，用于分享我的论文阅读和实验报告等。</p>
+<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><h3 id="Git-和-Github-SSH-key"><a href="#Git-和-Github-SSH-key" class="headerlink" title="Git 和 Github SSH key"></a>Git 和 Github SSH key</h3><p>安装成功后，需要将Git与GitHub账户进行绑定，在Git Bash中设置用户信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name <span class="string">&quot;github 用户名&quot;</span></span><br><span class="line">$ git config --global user.email <span class="string">&quot;github 注册邮箱&quot;</span></span><br></pre></td></tr></table></figure>
+<p>然后生成ssh密钥：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C <span class="string">&quot;github 注册邮箱&quot;</span></span><br></pre></td></tr></table></figure>
+<p>找到生成的id_rsa.pub文件，复制其中密钥至<a target="_blank" rel="noopener" href="https://github.com/settings/keys">GitHub-settings-keys</a>新建一个SSH key即可。</p>
+<h3 id="Node-Js"><a href="#Node-Js" class="headerlink" title="Node.Js"></a>Node.Js</h3><p>Windows直接在<a target="_blank" rel="noopener" href="https://nodejs.org/en/">Node.Js官网</a>下载即可。<br>下载完成后可在终端输入以下命令查看node和npm是否成功安装：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">node -v</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm -v</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h3><p>新建一个路径用于存放blog文件，在Git Bash中cd到该路径下，使用npm命令安装Hexo：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm i hexo-cli -g</span><br></pre></td></tr></table></figure>
+<p>初始化hexo并安装必备组件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init .</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
+
+<h3 id="Github-Pages"><a href="#Github-Pages" class="headerlink" title="Github Pages"></a>Github Pages</h3><p>新建一个public仓库，仓库名为：_”Github用户名”.github.io_ （必须以此为用户名，否则后续GitHub Pages的url会出现问题），在仓库设置中的_”Pages”<em>部分选择</em>‘master’_分支作为source。<br>GitHub Pages 配置保存后，个人主页的网站将会自动发布到 https:&#x2F;&#x2F;“GitHub用户名”.github.io，并且可以在仓库的设置页面中的 “GitHub Pages” 部分查看网页更新情况。</p>
+<h3 id="部署至GitHub"><a href="#部署至GitHub" class="headerlink" title="部署至GitHub"></a>部署至GitHub</h3><p>修改blog目录中的站点配置文件_config.yml_，加入以下内容：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span> </span><br><span class="line"><span class="attr">type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">repo:</span> <span class="string">&lt;repo-url&gt;</span></span><br><span class="line"><span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+<p>完成后通过以下命令即可将本地内容推送至Github repository中，并可在浏览器中访问</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate --deploy</span><br></pre></td></tr></table></figure>
+
+<h3 id="写blog"><a href="#写blog" class="headerlink" title="写blog"></a>写blog</h3><p>通过如下命令在_blog&#x2F;source&#x2F;_posts_路径下生成新的Markdown文件，修改.md文件并推送至GitHub repository后，即可在网页中查看博客内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo n <span class="string">&quot;title&quot;</span></span><br></pre></td></tr></table></figure>
+
 <h2 id="搭建过程中遇到的问题和解决方法"><a href="#搭建过程中遇到的问题和解决方法" class="headerlink" title="搭建过程中遇到的问题和解决方法"></a>搭建过程中遇到的问题和解决方法</h2><h3 id="问题1"><a href="#问题1" class="headerlink" title="问题1"></a>问题1</h3>
       
     </div>
