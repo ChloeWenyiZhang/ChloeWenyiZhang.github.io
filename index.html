@@ -167,7 +167,7 @@
 <h3 id="Node-Js"><a href="#Node-Js" class="headerlink" title="Node.Js"></a>Node.Js</h3><p>Windows直接在<a target="_blank" rel="noopener" href="https://nodejs.org/en/">Node.Js官网</a>下载即可。<br>下载完成后可在终端输入以下命令查看node和npm是否成功安装：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">node -v</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm -v</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h3><p>新建一个路径用于存放blog文件，在Git Bash中cd到该路径下，使用npm命令安装Hexo：</p>
+<h2 id="功能实现"><a href="#功能实现" class="headerlink" title="功能实现"></a>功能实现</h2><h3 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h3><p>新建一个路径用于存放blog文件，在Git Bash中cd到该路径下，使用npm命令安装Hexo：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm i hexo-cli -g</span><br></pre></td></tr></table></figure>
 <p>初始化hexo并安装必备组件：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init .</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
@@ -181,6 +181,7 @@
 <h3 id="写blog"><a href="#写blog" class="headerlink" title="写blog"></a>写blog</h3><p>通过如下命令在_blog&#x2F;source&#x2F;_posts_路径下生成新的Markdown文件，修改.md文件并推送至GitHub repository后，即可在网页中查看博客内容：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo n <span class="string">&quot;title&quot;</span></span><br></pre></td></tr></table></figure>
 
+<h2 id="总结与反思"><a href="#总结与反思" class="headerlink" title="总结与反思"></a>总结与反思</h2><h3 id="选取Hexo作为博客主题的原因："><a href="#选取Hexo作为博客主题的原因：" class="headerlink" title="选取Hexo作为博客主题的原因："></a>选取Hexo作为博客主题的原因：</h3><p>-<strong>简单易用</strong>：使用Markdown语法编写内容，学习简单，快速上手。<br>-<strong>自动化部署</strong>：支持自动化部署到各种平台（如GitHub Pages、Netlify等），可以通过简单的命令实现内容更新的快速部署。<br>-<strong>丰富的主题和插件</strong>：提供了大量的主题和插件，可以根据需求定制网站风格和功能。<br>-<strong>生态系统健全</strong>：Hexo是一个成熟的静态网站生成器，拥有活跃的社区和丰富的文档，解决问题和获取支持相对容易。</p>
 <h2 id="搭建过程中遇到的问题和解决方法"><a href="#搭建过程中遇到的问题和解决方法" class="headerlink" title="搭建过程中遇到的问题和解决方法"></a>搭建过程中遇到的问题和解决方法</h2><h3 id="1-Hexo无法正确识别Git插件"><a href="#1-Hexo无法正确识别Git插件" class="headerlink" title="1. Hexo无法正确识别Git插件"></a>1. Hexo无法正确识别Git插件</h3><p><strong>解决方法</strong>：安装hexo-deployer-git 插件</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
 
@@ -189,8 +190,7 @@
 
 <h3 id="3-部署过程中身份验证失败"><a href="#3-部署过程中身份验证失败" class="headerlink" title="3. 部署过程中身份验证失败"></a>3. 部署过程中身份验证失败</h3><p><strong>错误原因</strong>：GitHub 在 2021 年 8 月 13 日移除了对密码验证的支持，因此需要使用其他的身份验证方式来进行部署。<br><strong>解决方法</strong>：配置好Git仓库的SSH密钥后，在Hexo的本地配置文件_config.yml_中使用git URL，而非HTTPS URL，可无需身份信息验证。</p>
 <h3 id="4-Hexo成功部署到Git仓库，但访问网页显示404（no-GitHub-Pages）"><a href="#4-Hexo成功部署到Git仓库，但访问网页显示404（no-GitHub-Pages）" class="headerlink" title="4. Hexo成功部署到Git仓库，但访问网页显示404（no GitHub Pages）"></a>4. Hexo成功部署到Git仓库，但访问网页显示404（no GitHub Pages）</h3><p><strong>错误原因</strong>：仓库名和GitHub用户名不一致，导致GitHub Pages 默认会使用用户名作为子域名，然后将仓库名称添加到域名后面。<br><strong>解决方法</strong>：修改仓库名为用户名，避免生成域名时的不一致。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="Hexo框架用于生成静态网页的优点："><a href="#Hexo框架用于生成静态网页的优点：" class="headerlink" title="Hexo框架用于生成静态网页的优点："></a>Hexo框架用于生成静态网页的优点：</h3><p>-<strong>简单易用</strong>：使用Markdown语法编写内容，学习简单，快速上手。<br>-<strong>自动化部署</strong>：支持自动化部署到各种平台（如GitHub Pages、Netlify等），可以通过简单的命令实现内容更新的快速部署。<br>-<strong>丰富的主题和插件</strong>：提供了大量的主题和插件，可以根据需求定制网站风格和功能。<br>-<strong>生态系统健全</strong>：Hexo是一个成熟的静态网站生成器，拥有活跃的社区和丰富的文档，解决问题和获取支持相对容易。</p>
-
+<h3 id="博客页面布局-设计思路"><a href="#博客页面布局-设计思路" class="headerlink" title="博客页面布局 &amp; 设计思路"></a>博客页面布局 &amp; 设计思路</h3>
       
     </div>
     <footer class="article-footer">
