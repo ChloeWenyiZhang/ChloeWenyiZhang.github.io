@@ -20,7 +20,7 @@
       
       |
     
-     Chloe的主页
+     Chloe的Blog
   </title>
 
   
@@ -74,7 +74,7 @@
     <a href="/">
       <!-- 头像取消懒加载，添加no-lazy -->
       
-        <img src="/images/cat.png" alt="">
+        <img no-lazy src="/images/cat.png" alt="">
       
     </a>
     <div class="nickname"><a href="/">Chloe_Zwy</a></div>
@@ -157,7 +157,7 @@
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
-          2024-04-20 16:37:32
+          2024-04-20 18:58:13
         </span>
         
               <span class="post-tags">
@@ -182,19 +182,25 @@
 <h3 id="Node-Js"><a href="#Node-Js" class="headerlink" title="Node.Js"></a>Node.Js</h3><p>Windows直接在<a target="_blank" rel="noopener" href="https://nodejs.org/en/">Node.Js官网</a>下载即可。<br>下载完成后可在终端输入以下命令查看node和npm是否成功安装：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">node -v</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm -v</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="功能实现"><a href="#功能实现" class="headerlink" title="功能实现"></a>功能实现</h2><h3 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h3><p>新建一个路径用于存放blog文件，在Git Bash中cd到该路径下，使用npm命令安装Hexo：</p>
+<h3 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h3><p>新建一个路径用于存放blog文件，在Git Bash中cd到该路径下，使用npm命令安装Hexo：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm i hexo-cli -g</span><br></pre></td></tr></table></figure>
 <p>初始化hexo并安装必备组件：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init .</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
 
 <h3 id="Github-Pages"><a href="#Github-Pages" class="headerlink" title="Github Pages"></a>Github Pages</h3><p>新建一个public仓库，仓库名为：_”Github用户名”.github.io_ （必须以此为用户名，否则后续GitHub Pages的url会出现问题），在仓库设置中的_”Pages”<em>部分选择</em>‘master’_分支作为source。<br>GitHub Pages 配置保存后，个人主页的网站将会自动发布到 https:&#x2F;&#x2F;“GitHub用户名”.github.io，并且可以在仓库的设置页面中的 “GitHub Pages” 部分查看网页更新情况。</p>
 <h3 id="部署至GitHub"><a href="#部署至GitHub" class="headerlink" title="部署至GitHub"></a>部署至GitHub</h3><p>修改blog目录中的站点配置文件_config.yml_，加入以下内容：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span> </span><br><span class="line">	<span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">	<span class="attr">repo:</span> <span class="string">&lt;repo-url&gt;</span></span><br><span class="line">	<span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">&lt;repo-url&gt;</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
 <p>完成后通过以下命令即可将本地内容推送至Github repository中，并可在浏览器中访问</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate --deploy</span><br></pre></td></tr></table></figure>
 
 <h3 id="写blog"><a href="#写blog" class="headerlink" title="写blog"></a>写blog</h3><p>通过如下命令在_blog&#x2F;source&#x2F;_posts_路径下生成新的Markdown文件，修改.md文件并推送至GitHub repository后，即可在网页中查看博客内容：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo n <span class="string">&quot;title&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="我的blog页面布局-设计思路"><a href="#我的blog页面布局-设计思路" class="headerlink" title="我的blog页面布局 &amp; 设计思路"></a>我的blog页面布局 &amp; 设计思路</h2><h2 id="功能完善"><a href="#功能完善" class="headerlink" title="功能完善"></a>功能完善</h2><p>本页面所添加功能包括：日夜模式、全文搜索、文章分享等等。</p>
+<h3 id="全文搜索（search）功能"><a href="#全文搜索（search）功能" class="headerlink" title="全文搜索（search）功能"></a>全文搜索（search）功能</h3><p>安装插件<a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search">hexo-generator-search</a>实现。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-generator-search --save</span><br></pre></td></tr></table></figure>
+<p>修改blog目录中的站点配置文件_config.yml_，加入以下内容：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">lazyload:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">onlypost:</span> <span class="literal">false</span> <span class="comment"># optional</span></span><br><span class="line">  <span class="attr">loadingImg:</span> <span class="comment"># optional eg ./images/loading.gif</span></span><br><span class="line">  <span class="attr">isSPA:</span> <span class="literal">false</span> <span class="comment"># optional</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="总结与反思"><a href="#总结与反思" class="headerlink" title="总结与反思"></a>总结与反思</h2><h3 id="选取Hexo作为博客主题的原因："><a href="#选取Hexo作为博客主题的原因：" class="headerlink" title="选取Hexo作为博客主题的原因："></a>选取Hexo作为博客主题的原因：</h3><p>-<strong>简单易用</strong>：使用Markdown语法编写内容，学习简单，快速上手。<br>-<strong>自动化部署</strong>：支持自动化部署到各种平台（如GitHub Pages、Netlify等），可以通过简单的命令实现内容更新的快速部署。<br>-<strong>丰富的主题和插件</strong>：提供了大量的主题和插件，可以根据需求定制网站风格和功能。<br>-<strong>生态系统健全</strong>：Hexo是一个成熟的静态网站生成器，拥有活跃的社区和丰富的文档，解决问题和获取支持相对容易。</p>
 <h3 id="搭建过程中遇到的问题和解决方法"><a href="#搭建过程中遇到的问题和解决方法" class="headerlink" title="搭建过程中遇到的问题和解决方法"></a>搭建过程中遇到的问题和解决方法</h3><h4 id="1-Hexo无法正确识别Git插件"><a href="#1-Hexo无法正确识别Git插件" class="headerlink" title="1. Hexo无法正确识别Git插件"></a>1. Hexo无法正确识别Git插件</h4><p><strong>解决方法</strong>：安装hexo-deployer-git 插件</p>
@@ -215,7 +221,7 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
-              2024-04-20 16:37:32
+              2024-04-20 18:58:13
             </span>
             
                   <span class="post-tags">
@@ -249,7 +255,7 @@
     <div class="title">目录</div>
     <div class="catalog-content">
       
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%9C%E4%B8%9A%E5%86%85%E5%AE%B9"><span class="toc-text">作业内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-text">环境配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Git-%E5%92%8C-Github-SSH-key"><span class="toc-text">Git 和 Github SSH key</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Node-Js"><span class="toc-text">Node.Js</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0"><span class="toc-text">功能实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo"><span class="toc-text">Hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Github-Pages"><span class="toc-text">Github Pages</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2%E8%87%B3GitHub"><span class="toc-text">部署至GitHub</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%99blog"><span class="toc-text">写blog</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%E4%B8%8E%E5%8F%8D%E6%80%9D"><span class="toc-text">总结与反思</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%89%E5%8F%96Hexo%E4%BD%9C%E4%B8%BA%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A2%98%E7%9A%84%E5%8E%9F%E5%9B%A0%EF%BC%9A"><span class="toc-text">选取Hexo作为博客主题的原因：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="toc-text">搭建过程中遇到的问题和解决方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-Hexo%E6%97%A0%E6%B3%95%E6%AD%A3%E7%A1%AE%E8%AF%86%E5%88%ABGit%E6%8F%92%E4%BB%B6"><span class="toc-text">1. Hexo无法正确识别Git插件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AEGit%E4%BB%93%E5%BA%93"><span class="toc-text">2. 无法访问Git仓库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E9%83%A8%E7%BD%B2%E8%BF%87%E7%A8%8B%E4%B8%AD%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81%E5%A4%B1%E8%B4%A5"><span class="toc-text">3. 部署过程中身份验证失败</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-Hexo%E6%88%90%E5%8A%9F%E9%83%A8%E7%BD%B2%E5%88%B0Git%E4%BB%93%E5%BA%93%EF%BC%8C%E4%BD%86%E8%AE%BF%E9%97%AE%E7%BD%91%E9%A1%B5%E6%98%BE%E7%A4%BA404%EF%BC%88no-GitHub-Pages%EF%BC%89"><span class="toc-text">4. Hexo成功部署到Git仓库，但访问网页显示404（no GitHub Pages）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%9A%E5%AE%A2%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80-%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF"><span class="toc-text">博客页面布局 &amp; 设计思路</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%9C%E4%B8%9A%E5%86%85%E5%AE%B9"><span class="toc-text">作业内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-text">环境配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Git-%E5%92%8C-Github-SSH-key"><span class="toc-text">Git 和 Github SSH key</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Node-Js"><span class="toc-text">Node.Js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo"><span class="toc-text">Hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Github-Pages"><span class="toc-text">Github Pages</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2%E8%87%B3GitHub"><span class="toc-text">部署至GitHub</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%99blog"><span class="toc-text">写blog</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%91%E7%9A%84blog%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80-%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF"><span class="toc-text">我的blog页面布局 &amp; 设计思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E5%AE%8C%E5%96%84"><span class="toc-text">功能完善</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E6%96%87%E6%90%9C%E7%B4%A2%EF%BC%88search%EF%BC%89%E5%8A%9F%E8%83%BD"><span class="toc-text">全文搜索（search）功能</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%E4%B8%8E%E5%8F%8D%E6%80%9D"><span class="toc-text">总结与反思</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%89%E5%8F%96Hexo%E4%BD%9C%E4%B8%BA%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A2%98%E7%9A%84%E5%8E%9F%E5%9B%A0%EF%BC%9A"><span class="toc-text">选取Hexo作为博客主题的原因：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="toc-text">搭建过程中遇到的问题和解决方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-Hexo%E6%97%A0%E6%B3%95%E6%AD%A3%E7%A1%AE%E8%AF%86%E5%88%ABGit%E6%8F%92%E4%BB%B6"><span class="toc-text">1. Hexo无法正确识别Git插件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AEGit%E4%BB%93%E5%BA%93"><span class="toc-text">2. 无法访问Git仓库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E9%83%A8%E7%BD%B2%E8%BF%87%E7%A8%8B%E4%B8%AD%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81%E5%A4%B1%E8%B4%A5"><span class="toc-text">3. 部署过程中身份验证失败</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-Hexo%E6%88%90%E5%8A%9F%E9%83%A8%E7%BD%B2%E5%88%B0Git%E4%BB%93%E5%BA%93%EF%BC%8C%E4%BD%86%E8%AE%BF%E9%97%AE%E7%BD%91%E9%A1%B5%E6%98%BE%E7%A4%BA404%EF%BC%88no-GitHub-Pages%EF%BC%89"><span class="toc-text">4. Hexo成功部署到Git仓库，但访问网页显示404（no GitHub Pages）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%9A%E5%AE%A2%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80-%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF"><span class="toc-text">博客页面布局 &amp; 设计思路</span></a></li></ol></li></ol>
       
     </div>
   </div>
